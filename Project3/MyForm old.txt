@@ -1,0 +1,495 @@
+#pragma once
+#include <iostream>
+#include <cmath>
+#include <Windows.h>
+#include <mmsystem.h>
+
+
+namespace Project3 {
+
+	using namespace System;
+	using namespace System::ComponentModel;
+	using namespace System::Collections;
+	using namespace System::Windows::Forms;
+	using namespace System::Data;
+	using namespace System::Drawing;
+	using namespace System::Drawing::Drawing2D;
+
+	/// <summary>
+	/// Summary for MyForm
+	/// </summary>
+	private enum DIRECTION {
+		dUP,
+		dDOWN,
+		dLEFT,
+		dRIGHT
+	};
+	
+	//static bool isClicked[14][14];
+	public ref class MyForm : public System::Windows::Forms::Form
+	{
+	private:
+		//int** isClicked = false;
+		static int nCount;
+		Random^ rand = gcnew Random();
+		int x = 0, y = 14, k;
+		cli::array<Button ^, 2> ^buttons = gcnew cli::array<Button^, 2>(14, 15);
+		static Point^ least = gcnew Point(100, 12);
+	private: System::Windows::Forms::Button^  button4;
+	private: System::Windows::Forms::Button^  button5;
+	private: System::Windows::Forms::Label^  label1;
+	private: System::Windows::Forms::Label^  label2;
+	private: System::Windows::Forms::Label^  label3;
+	private: System::Windows::Forms::Timer^  timer2;
+	private: System::Windows::Forms::Button^  button6;
+	private: System::Windows::Forms::DataGridView^  dataGridView1;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^  Column1;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^  Column2;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^  Column3;
+			 //Button^ thisButton = gcnew Button();
+
+
+			 static Point^ most = gcnew Point(460, 432);
+	public:
+		void CreateBoard();
+		void clickButton(System::Object^  sender, System::EventArgs^  e);
+		//int deleteButton(int xx, int yy, Button^ selected);
+		//int deleteAdjacent(int ax, int ay, Button^ adjacent, DIRECTION dir);
+		/*bool checkButton(int q, int w, Button^ go, DIRECTION d);*/
+		//void whichButton(Button^ chosen);
+		void compactButton();
+		int goCheck(int a, int b, Button^ btn);
+		int checkNext(int c, int d, Button^ btns);
+	private: System::Windows::Forms::Button^  button1;
+	private: System::Windows::Forms::Button^  button2;
+	private: System::Windows::Forms::Button^  button3;
+	public:
+		MyForm(void)
+		{
+			InitializeComponent();
+			CreateBoard();
+			char* test[3];
+			test[0] = "Trinaldi";
+			test[1] = "Rizki";
+			test[2] = "Permana";
+			int gg = 2;
+			int gh = 4;
+			dataGridView1->Rows[0]->Cells[0]->Value = gh;
+			dataGridView1->Rows[1]->Cells[0]->Value = gg;
+			//dataGridView1->Sort()
+			//timer2->Interval = 20;
+			//timer2->Start();
+			//PlaySound(TEXT("back.wav"), NULL, SND_FILENAME | SND_ASYNC);
+		}
+	protected:
+		/// <summary>
+		/// Clean up any resources being used.
+		/// </summary>
+		~MyForm()
+		{
+			if (components)
+			{
+				delete components;
+			}
+		}
+	protected:
+
+	private: System::Windows::Forms::Timer^  timer1;
+	private: System::ComponentModel::IContainer^  components;
+	protected:
+	protected:
+	protected:
+	private:
+		/// <summary>
+		/// Required designer variable.
+		/// </summary>
+
+#pragma region Windows Form Designer generated code
+		/// <summary>
+		/// Required method for Designer support - do not modify
+		/// the contents of this method with the code editor.
+		/// </summary>
+		void InitializeComponent(void)
+		{
+			this->components = (gcnew System::ComponentModel::Container());
+			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
+			this->button1 = (gcnew System::Windows::Forms::Button());
+			this->button2 = (gcnew System::Windows::Forms::Button());
+			this->button3 = (gcnew System::Windows::Forms::Button());
+			this->button4 = (gcnew System::Windows::Forms::Button());
+			this->button5 = (gcnew System::Windows::Forms::Button());
+			this->label1 = (gcnew System::Windows::Forms::Label());
+			this->label2 = (gcnew System::Windows::Forms::Label());
+			this->label3 = (gcnew System::Windows::Forms::Label());
+			this->timer2 = (gcnew System::Windows::Forms::Timer(this->components));
+			this->button6 = (gcnew System::Windows::Forms::Button());
+			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
+			this->Column1 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Column2 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Column3 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
+			this->SuspendLayout();
+			// 
+			// timer1
+			// 
+			this->timer1->Enabled = true;
+			this->timer1->Interval = 200;
+			this->timer1->Tick += gcnew System::EventHandler(this, &MyForm::timer1_Tick);
+			// 
+			// button1
+			// 
+			this->button1->BackColor = System::Drawing::Color::DarkGray;
+			this->button1->FlatAppearance->BorderColor = System::Drawing::Color::LightGray;
+			this->button1->FlatAppearance->BorderSize = 5;
+			this->button1->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Goldenrod;
+			this->button1->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->button1->Font = (gcnew System::Drawing::Font(L"Times New Roman", 10, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->button1->ForeColor = System::Drawing::Color::Black;
+			this->button1->Location = System::Drawing::Point(35, 12);
+			this->button1->Name = L"button1";
+			this->button1->Size = System::Drawing::Size(75, 40);
+			this->button1->TabIndex = 0;
+			this->button1->Text = L"&New";
+			this->button1->UseVisualStyleBackColor = false;
+			// 
+			// button2
+			// 
+			this->button2->BackColor = System::Drawing::Color::DarkGray;
+			this->button2->FlatAppearance->BorderColor = System::Drawing::Color::LightGray;
+			this->button2->FlatAppearance->BorderSize = 5;
+			this->button2->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Goldenrod;
+			this->button2->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->button2->Font = (gcnew System::Drawing::Font(L"Times New Roman", 10, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->button2->Location = System::Drawing::Point(35, 150);
+			this->button2->Name = L"button2";
+			this->button2->Size = System::Drawing::Size(75, 55);
+			this->button2->TabIndex = 1;
+			this->button2->Text = L"High &Score";
+			this->button2->UseVisualStyleBackColor = false;
+			// 
+			// button3
+			// 
+			this->button3->BackColor = System::Drawing::Color::DarkGray;
+			this->button3->FlatAppearance->BorderColor = System::Drawing::Color::LightGray;
+			this->button3->FlatAppearance->BorderSize = 5;
+			this->button3->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Goldenrod;
+			this->button3->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->button3->Font = (gcnew System::Drawing::Font(L"Times New Roman", 10, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->button3->Location = System::Drawing::Point(35, 421);
+			this->button3->Name = L"button3";
+			this->button3->Size = System::Drawing::Size(75, 40);
+			this->button3->TabIndex = 2;
+			this->button3->Text = L"&Quit";
+			this->button3->UseVisualStyleBackColor = false;
+			// 
+			// button4
+			// 
+			this->button4->BackColor = System::Drawing::Color::DarkGray;
+			this->button4->FlatAppearance->BorderColor = System::Drawing::Color::LightGray;
+			this->button4->FlatAppearance->BorderSize = 5;
+			this->button4->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Goldenrod;
+			this->button4->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->button4->Font = (gcnew System::Drawing::Font(L"Times New Roman", 10, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->button4->ForeColor = System::Drawing::Color::Black;
+			this->button4->Location = System::Drawing::Point(35, 104);
+			this->button4->Name = L"button4";
+			this->button4->Size = System::Drawing::Size(75, 40);
+			this->button4->TabIndex = 3;
+			this->button4->Text = L"&Level";
+			this->button4->UseVisualStyleBackColor = false;
+			// 
+			// button5
+			// 
+			this->button5->BackColor = System::Drawing::Color::DarkGray;
+			this->button5->FlatAppearance->BorderColor = System::Drawing::Color::LightGray;
+			this->button5->FlatAppearance->BorderSize = 5;
+			this->button5->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Goldenrod;
+			this->button5->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->button5->Font = (gcnew System::Drawing::Font(L"Times New Roman", 10, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->button5->ForeColor = System::Drawing::Color::Black;
+			this->button5->Location = System::Drawing::Point(35, 58);
+			this->button5->Name = L"button5";
+			this->button5->Size = System::Drawing::Size(75, 40);
+			this->button5->TabIndex = 4;
+			this->button5->Text = L"&Pause";
+			this->button5->UseVisualStyleBackColor = false;
+			// 
+			// label1
+			// 
+			this->label1->AutoSize = true;
+			this->label1->Font = (gcnew System::Drawing::Font(L"Times New Roman", 12, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->label1->Location = System::Drawing::Point(50, 231);
+			this->label1->Name = L"label1";
+			this->label1->Size = System::Drawing::Size(45, 19);
+			this->label1->TabIndex = 5;
+			this->label1->Text = L"Level";
+			// 
+			// label2
+			// 
+			this->label2->AutoSize = true;
+			this->label2->Font = (gcnew System::Drawing::Font(L"Times New Roman", 12, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->label2->Location = System::Drawing::Point(48, 341);
+			this->label2->Name = L"label2";
+			this->label2->Size = System::Drawing::Size(46, 19);
+			this->label2->TabIndex = 6;
+			this->label2->Text = L"Score";
+			// 
+			// label3
+			// 
+			this->label3->AutoSize = true;
+			this->label3->Font = (gcnew System::Drawing::Font(L"Times New Roman", 12, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->label3->Location = System::Drawing::Point(36, 285);
+			this->label3->Name = L"label3";
+			this->label3->Size = System::Drawing::Size(72, 19);
+			this->label3->TabIndex = 7;
+			this->label3->Text = L"Tiles Left";
+			// 
+			// timer2
+			// 
+			this->timer2->Enabled = true;
+			this->timer2->Interval = 6640;
+			this->timer2->Tick += gcnew System::EventHandler(this, &MyForm::timer2_Tick);
+			// 
+			// button6
+			// 
+			this->button6->BackColor = System::Drawing::Color::Transparent;
+			this->button6->FlatAppearance->BorderColor = System::Drawing::Color::Cornsilk;
+			this->button6->FlatAppearance->BorderSize = 5;
+			this->button6->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->button6->Font = (gcnew System::Drawing::Font(L"Times New Roman", 10, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->button6->ForeColor = System::Drawing::Color::Black;
+			this->button6->Location = System::Drawing::Point(570, 450);
+			this->button6->Name = L"button6";
+			this->button6->Size = System::Drawing::Size(20, 12);
+			this->button6->TabIndex = 8;
+			this->button6->UseVisualStyleBackColor = false;
+			// 
+			// dataGridView1
+			// 
+			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(3) {
+				this->Column1,
+					this->Column2, this->Column3
+			});
+			this->dataGridView1->Location = System::Drawing::Point(83, 100);
+			this->dataGridView1->Name = L"dataGridView1";
+			this->dataGridView1->Size = System::Drawing::Size(347, 150);
+			this->dataGridView1->TabIndex = 9;
+			// 
+			// Column1
+			// 
+			this->Column1->HeaderText = L"Column1";
+			this->Column1->Name = L"Column1";
+			// 
+			// Column2
+			// 
+			this->Column2->HeaderText = L"Column2";
+			this->Column2->Name = L"Column2";
+			// 
+			// Column3
+			// 
+			this->Column3->HeaderText = L"Column3";
+			this->Column3->Name = L"Column3";
+			// 
+			// MyForm
+			// 
+			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
+			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+			this->AutoSize = true;
+			this->BackColor = System::Drawing::Color::Cornsilk;
+			this->ClientSize = System::Drawing::Size(496, 473);
+			this->Controls->Add(this->dataGridView1);
+			this->Controls->Add(this->button6);
+			this->Controls->Add(this->label3);
+			this->Controls->Add(this->label2);
+			this->Controls->Add(this->label1);
+			this->Controls->Add(this->button5);
+			this->Controls->Add(this->button4);
+			this->Controls->Add(this->button3);
+			this->Controls->Add(this->button2);
+			this->Controls->Add(this->button1);
+			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
+			this->MaximizeBox = false;
+			this->MinimumSize = System::Drawing::Size(500, 39);
+			this->Name = L"MyForm";
+			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
+			this->Text = L"MyForm";
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
+			this->ResumeLayout(false);
+			this->PerformLayout();
+
+		}
+#pragma endregion
+
+	private: System::Void timer1_Tick(System::Object^ sender, System::EventArgs^ e) {
+		if (x == 14) {
+			for (int i = 0; i < x; i++)
+			{
+				for (int k = 13; k >= 0; k--)
+				{
+					if (buttons[i, 0]->Visible)
+					{
+						timer1->Enabled = false;
+					}
+					buttons[i, y - k - 1]->BackColor = buttons[i, y - k]->BackColor;
+					buttons[i, y - k - 1]->Visible = buttons[i, y - k]->Visible;
+				}
+			}
+			for (int j = 0; j < x; j++) buttons[j, y]->BackColor = Color::Gainsboro;
+			x = 0;
+		}
+		else
+		{
+			switch (rand->Next(4))
+			{
+			case 0: buttons[x++, y]->BackColor = Color::OrangeRed; break;
+			case 1: buttons[x++, y]->BackColor = Color::LimeGreen; break;
+			case 2: buttons[x++, y]->BackColor = Color::DodgerBlue; break;
+			case 3: buttons[x++, y]->BackColor = Color::Gold; break;
+			}
+		}
+	}
+
+private: System::Void timer2_Tick(System::Object^  sender, System::EventArgs^  e) {
+	PlaySound(TEXT("back.wav"), NULL, SND_FILENAME | SND_ASYNC);
+}
+};
+	void MyForm::CreateBoard() {
+		int i, j;
+		for (i = 0; i < 14; i++)
+		{
+			for (j = 0; j < 15; j++)
+			{
+				buttons[i, j] = gcnew System::Windows::Forms::Button();
+				buttons[i, j]->Location = System::Drawing::Point(30 * i + 150, 30 * j+12);
+				buttons[i, j]->Size = System::Drawing::Size(30, 30);
+				buttons[i, j]->UseVisualStyleBackColor = true;
+				buttons[i, j]->BackColor = Color::Gainsboro;
+				buttons[i, j]->FlatStyle = FlatStyle::Flat;
+				buttons[i, j]->FlatAppearance->BorderColor = Color::LightGray;
+				buttons[i, j]->Visible = false;
+				
+				if (j == 14) {
+					buttons[i, j]->FlatAppearance->BorderSize = 6;
+					buttons[i, j]->FlatAppearance->BorderColor = Color::DimGray;
+					buttons[i, j]->Visible = true;
+				}
+				else buttons[i, j]->Click += gcnew EventHandler(this, &MyForm::clickButton);
+				this->Controls->Add(buttons[i, j]);
+			}
+		}
+	}
+
+	void MyForm::clickButton(System::Object^  sender, System::EventArgs^  e)
+	{
+		Button^ clicked = safe_cast<Button^>(sender);
+		Point^ pos = safe_cast<Point>(clicked->Location);
+
+		int ex = (pos->X - 150) / 30;
+		int ey = (pos->Y - 12) / 30;
+
+		int px = (ex == 0 ? 0 : ex - 1);
+		int nx = (ex == 13 ? 13 : ex + 1);
+		int py = (ey == 0 ? 0 : ey - 1);
+		int ny = (ey == 13 ? 13 : ey + 1);
+
+		int numBalls;
+		if (buttons[ex,ey]->Visible && buttons[ex,ey]->BackColor != Color::Gainsboro)
+		{
+			if ((buttons[px,ey]->BackColor == clicked->BackColor) && (px != ex) && (buttons[px,ey]->Visible)
+				|| (buttons[nx, ey]->BackColor == clicked->BackColor) && (nx != ex) && (buttons[nx, ey]->Visible)
+				|| (buttons[ex, py]->BackColor == clicked->BackColor) && (py != ey) && (buttons[ex, py]->Visible)
+				|| (buttons[ex, ny]->BackColor == clicked->BackColor) && (ny != ey) && (buttons[ex, ny]->Visible))
+			{
+				numBalls = goCheck(ex, ey, clicked);
+				//return numBalls;
+			}
+		}
+	}
+
+int MyForm::goCheck(int a, int b, Button^ btn) {
+	buttons[a, b]->Visible = false;
+	int ret = 0;
+	ret += checkNext(a, b, btn);
+	compactButton();
+	return ret;
+}
+
+int MyForm::checkNext(int c, int d, Button^ btns) {
+	int px = (c == 0 ? 0 : c - 1);
+	int nx = (c == 13 ? 13 : c + 1);
+	int py = (d == 0 ? 0 : d - 1);
+	int ny = (d == 13 ? 13 : d + 1);
+
+	int ret = 1;
+	if ((buttons[px, d]->BackColor == btns->BackColor) && (px != c) && (buttons[px, d]->Visible))
+	{
+		buttons[px,d]->Visible = false;
+		ret += checkNext(px, d, btns);
+	}
+	if ((buttons[nx, d]->BackColor == btns->BackColor) && (nx != c) && (buttons[nx, d]->Visible))
+	{
+		buttons[nx, d]->Visible = false;
+		ret += checkNext(nx, d, btns);
+	}
+	if ((buttons[c, py]->BackColor == btns->BackColor) && (py != d) && (buttons[c, py]->Visible))
+	{
+		buttons[c, py]->Visible = false;
+		ret += checkNext(c, py, btns);
+	}
+	if ((buttons[c, ny]->BackColor == btns->BackColor) && (ny != d) && (buttons[c, ny]->Visible))
+	{
+		buttons[c, ny]->Visible = false;
+		ret += checkNext(c, ny, btns);
+	}
+	return ret;
+}
+
+void MyForm::compactButton() {
+	for (int i = 0; i < 14; i++)
+	{
+		for (int j = 0; j < 14; j++)
+		{
+			if (!buttons[i,j]->Visible)
+			{
+				for (int r = j; r >= 0; r--)
+				{
+					if (r > 0) {
+						buttons[i, r]->BackColor = buttons[i, r - 1]->BackColor;
+						buttons[i, r]->Visible = buttons[i, r - 1]->Visible;
+					}
+					else buttons[i, r]->Visible = false;
+				}
+			}
+		}
+	}
+
+	for (int i = 13; i >= 0; i--)
+	{
+		if ((!buttons[i,13]->Visible))
+		{
+			for (int sx = i; sx < 14; sx++)
+			{
+				for (int sj = 0; sj < 14; sj++)
+				{
+					if (sx < 13) {
+						buttons[sx, sj]->BackColor = buttons[sx + 1, sj]->BackColor;
+						buttons[sx, sj]->Visible = buttons[sx + 1, sj]->Visible;
+					}
+					else buttons[sx, sj]->Visible = false;
+				}
+			}
+		}
+
+	}
+}
+}
